@@ -1,0 +1,9 @@
+digraph QueryPlan {
+    A [label="SELECT"];
+    B [label="JOIN"];
+    C [label="Table A"];
+    D [label="Table B"];
+    A -> B;
+    B -> C;
+    B -> D;
+}
