@@ -6,7 +6,7 @@ all: $(GRAPHVIZ_TARGETS)
 
 graphviz/%.png: graphviz/%.dot
 	@echo "Generating $@"
-	dot -Tpng -o $@ $<
+	dot -Tpng -Gdpi=300 -o $@ $<
 
 clean:
 	@echo "Cleaning up generated files..."
