@@ -1,0 +1,20 @@
+digraph G {
+    rankdir=BT; // Bottom to top layout
+    
+    node [shape=ellipse, style=dashed];
+
+    // Nodes for tables
+    table1 [label="Table 1\n(sorted)"];
+    table2 [label="Table 2\n(with index)"];
+    
+    // Node for Hash Join
+    nested_loop_join [label="NLJ", style=filled];
+
+    output [label="Output"];
+
+    // Edges
+    table1 -> nested_loop_join;
+    table2 -> nested_loop_join;
+
+    nested_loop_join -> output [label="Sorted on Table 1\n(outer table)"];
+}

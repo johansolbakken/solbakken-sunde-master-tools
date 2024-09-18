@@ -1,0 +1,24 @@
+digraph G {
+    rankdir=BT; // Bottom to top layout
+    
+    node [shape=ellipse, style=dashed];
+
+    // Nodes for tables
+    table1 [label="Table 1\n(sorted)"];
+    table2 [label="Table 2"];
+    
+    // Node for Hash Join
+    hash_join [label="HJ", style=filled];
+
+    sort [label="Sort", style=filled]
+
+    output [label="Output"];
+
+    // Edges
+    table1 -> hash_join;
+    table2 -> hash_join;
+
+    hash_join -> sort [label="Unsorted"];
+
+    sort -> output;
+}
