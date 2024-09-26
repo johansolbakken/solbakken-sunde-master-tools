@@ -1,0 +1,12 @@
+digraph G {
+    rankdir=BT; // Bottom to top layout
+
+    node [shape=ellipse, style=filled];
+
+    MergeJoin [label="Merge Join\n(On R.A = S.A)"];
+    IndexScanR [label="Index Scan R\n(Order By R.A)"];
+    IndexScanS [label="Index Scan S\n(Order By S.A)"];
+
+    IndexScanR -> MergeJoin;
+    IndexScanS -> MergeJoin;
+}

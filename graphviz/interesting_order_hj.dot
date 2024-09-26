@@ -1,24 +1,14 @@
 digraph G {
     rankdir=BT; // Bottom to top layout
     
-    node [shape=ellipse, style=dashed];
+    node [shape=ellipse, style=filled];
 
-    // Nodes for tables
-    table1 [label="Table 1\n(sorted)"];
-    table2 [label="Table 2"];
-    
-    // Node for Hash Join
-    hash_join [label="HJ", style=filled];
+    Sort [label="Sort\n(Order By R.A)"];
+    HashJoin [label="Hash Join\n(On R.A = S.A)"];
+    SeqScanR [label="Seq Scan R"];
+    SeqScanS [label="Seq Scan S"];
 
-    sort [label="Sort", style=filled]
-
-    output [label="Output"];
-
-    // Edges
-    table1 -> hash_join;
-    table2 -> hash_join;
-
-    hash_join -> sort [label="Unsorted"];
-
-    sort -> output;
+    HashJoin -> Sort;
+    SeqScanR -> HashJoin;
+    SeqScanS -> HashJoin;
 }
