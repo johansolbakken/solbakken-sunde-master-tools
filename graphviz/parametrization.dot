@@ -1,0 +1,37 @@
+digraph G {
+    graph [splines=line];
+    rankdir=BT;
+    node [shape=circle, fixedsize=true, width=0.7, height=0.7];
+
+    root [label="Join"];
+
+    // Left subtree
+    leftTreeJoin1 [label="Join"];
+    leftTreeJoin2 [label="Join"];
+    leftTreeScan1 [label="Scan"];
+    leftTreeScanA [label="Scan A", style=filled];
+    leftTreeScan2 [label="Scan"];
+
+    leftTreeJoin1 -> root;
+    leftTreeJoin2 -> leftTreeJoin1;
+    leftTreeScanA -> leftTreeJoin1; 
+    leftTreeScan1 -> leftTreeJoin2;
+    leftTreeScan2 -> leftTreeJoin2; 
+
+
+    // Right subtree
+    rightTreeJoin -> root;
+    rightTreeScanB -> rightTreeJoin;
+    rightTreeScanC -> rightTreeJoin;
+
+    rightTreeJoin [label="Join", style=filled, fillcolor=lightblue];
+    rightTreeScanB [label="Scan B", style=filled, fillcolor=lightblue];
+    rightTreeScanC [label="Scan C", style=filled, fillcolor=lightblue];
+
+    // Add an invisible node for the label and connect it to rightTreeJoin
+    label_node [label="A.x=B.y", shape=none, fontname="Courier"];
+    rightTreeJoin -> label_node [style=invis];
+
+    // Ensure that rightTreeJoin and label_node are at the same rank to appear horizontally aligned
+    { rank=same; rightTreeJoin; label_node; }
+}
