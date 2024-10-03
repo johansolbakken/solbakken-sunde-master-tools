@@ -1,0 +1,24 @@
+digraph G {
+    graph [splines=line];
+    rankdir=BT;
+    node [shape=circle, fixedsize=true, width=0.7, height=0.7];
+
+    root [label="Join"];
+
+    // Left subtree
+    leftTreeJoin1 [label="Join1"];
+    leftTreeScanA [label="Scan A", style=filled];
+
+    leftTreeJoin1 -> root;
+    leftTreeScanA -> root;
+
+
+    // Right subtree
+    rightTreeJoin -> leftTreeJoin1;
+    rightTreeScanB -> rightTreeJoin;
+    rightTreeScanC -> rightTreeJoin;
+
+    rightTreeJoin [label="Join", style=filled, fillcolor=lightblue];
+    rightTreeScanB [label="Scan B", style=filled, fillcolor=lightblue];
+    rightTreeScanC [label="Scan C", style=filled, fillcolor=lightblue];
+}

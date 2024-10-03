@@ -14,9 +14,9 @@ digraph G {
 
     leftTreeJoin1 -> root;
     leftTreeJoin2 -> leftTreeJoin1;
-    leftTreeScanA -> leftTreeJoin1; 
+    leftTreeScanA -> leftTreeJoin1;
     leftTreeScan1 -> leftTreeJoin2;
-    leftTreeScan2 -> leftTreeJoin2; 
+    leftTreeScan2 -> leftTreeJoin2;
 
 
     // Right subtree
@@ -29,9 +29,8 @@ digraph G {
     rightTreeScanC [label="Scan C", style=filled, fillcolor=lightblue];
 
     // Add an invisible node for the label and connect it to rightTreeJoin
-    label_node [label="A.x=B.y", shape=none, fontname="Courier"];
-    rightTreeJoin -> label_node [style=invis];
+    label_node [label="Index Scan on\nB.x=A.y", shape=none, fontname="Courier"];
 
-    // Ensure that rightTreeJoin and label_node are at the same rank to appear horizontally aligned
-    { rank=same; rightTreeJoin; label_node; }
+    // label_node under rightTreeScanB
+    label_node -> rightTreeScanB [style=dashed,color=gray];
 }
