@@ -1,0 +1,22 @@
+digraph G {
+    rankdir=TB; // Bottom to top layout
+
+    node [shape=plaintext];
+
+    // Nodes
+    model [label="Model Specification"]
+    code [label="Optimizer Source Code"]
+    query [label="Query"]
+    optimizer [label="Optimizer"]
+    plan [label="Plan"]
+
+    // Edges
+    model -> code [label="  Optimizer Generator"]
+
+    // Same rank for query, optimizer, and plan
+    { rank=same; query; optimizer; plan; }
+
+    code -> optimizer [label="  Compiler and Linker"]
+    query -> optimizer
+    optimizer -> plan
+}
