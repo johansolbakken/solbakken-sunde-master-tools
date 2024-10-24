@@ -1,0 +1,13 @@
+digraph G {
+    rankdir=BT; // Bottom to top layout
+
+    node [shape=ellipse];
+
+    outer [label="Outer\n*"];
+    inner [label="Inner\nSAFE"];
+
+    nlj [label="NLJ\n*"];
+
+    outer -> nlj;
+    inner -> nlj;
+}
