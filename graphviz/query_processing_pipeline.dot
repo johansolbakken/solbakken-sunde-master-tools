@@ -10,7 +10,7 @@ digraph QueryProcessingPipeline {
     ExecEngine [label="Execution"];
 
     // Edges
-    SQLQuery -> Parser [label="SQL Query"];
+    SQLQuery -> Parser [label="  SQL Query"];
     Parser -> Transformation;
     Transformation -> Optimizer;
     Optimizer -> ExecEngine;
