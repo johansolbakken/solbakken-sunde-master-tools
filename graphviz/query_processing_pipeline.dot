@@ -1,21 +1,17 @@
 digraph QueryProcessingPipeline {
-    rankdir=TB; // lay out top to bottom
-    node [shape=box, style=filled];
+
+    node [shape=box];
 
     // Nodes definition
-    SQLQuery [label="SQL Query"];
-    Parser [label="Parser", fillcolor=lightblue, style="filled"];
-    Optimizer [label="Optimizer", fillcolor=lightblue, style="filled"];
-    ExecEngine [label="Execution Engine", fillcolor=lightblue, style="filled"];
-    DatabaseCatalog [label="Database Catalog"];
-    DataStorage [label="Data Storage"];
-
-    // Node positioning (subgraph)
-    { rank=same; Optimizer -> DatabaseCatalog [label=" Uses"]; }
-    { rank=same; ExecEngine -> DataStorage [label=" Reads"]; }
+    SQLQuery [shape=point, style=invis];
+    Parser [label="Scanning, Parsing, Resolving"];
+    Transformation [label="Transformation"];
+    Optimizer [label="Optimizing"];
+    ExecEngine [label="Execution"];
 
     // Edges
-    SQLQuery -> Parser;
-    Parser -> Optimizer;
+    SQLQuery -> Parser [label="SQL Query"];
+    Parser -> Transformation;
+    Transformation -> Optimizer;
     Optimizer -> ExecEngine;
 }
