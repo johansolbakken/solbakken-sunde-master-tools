@@ -1,36 +1,35 @@
 digraph G {
-    graph [splines=line];
-    rankdir=BT;
-    node [shape=circle, fixedsize=true, width=0.7, height=0.7];
+    rankdir=BT; // Bottom to top layout
 
-    root [label="Join"];
+    subgraph cluster_nlj {
+        label="Nested Loop Join";
+        style=dashed;
 
-    // Left subtree
-    leftTreeJoin1 [label="Join"];
-    leftTreeJoin2 [label="Join"];
-    leftTreeScan1 [label="Scan"];
-    leftTreeScanA [label="Scan A", style=filled];
-    leftTreeScan2 [label="Scan"];
+        idx_scan_c [label="Index Scan", fontname="bold"];
+        table_c [label="Table C", shape=none];
+        table_c -> idx_scan_c [label="C.z=A.x", fontname="monospace", labelloc="c", labeldistance=2];
+    }
 
-    leftTreeJoin1 -> root;
-    leftTreeJoin2 -> leftTreeJoin1;
-    leftTreeScanA -> leftTreeJoin1;
-    leftTreeScan1 -> leftTreeJoin2;
-    leftTreeScan2 -> leftTreeJoin2;
+    subgraph cluster_nlj_idx {
+        label="Nested Loop Join with Index";
+        style=dashed;
 
+        hj [label="HJ", fontname="bold"];
+        hj_cond [label="B.y=C.w", fontname="monospace", shape=none];
 
-    // Right subtree
-    rightTreeJoin -> root;
-    rightTreeScanB -> rightTreeJoin;
-    rightTreeScanC -> rightTreeJoin;
+        scan_b [label="Table Scan", fontname="bold"];
+        table_b [label="Table B", shape=none];
 
-    rightTreeJoin [label="Join", style=filled, fillcolor=lightblue];
-    rightTreeScanB [label="Scan B", style=filled, fillcolor=lightblue];
-    rightTreeScanC [label="Scan C", style=filled, fillcolor=lightblue];
+        hj_idx_scan_c [label="Index Scan", fontname="bold"];
+        hj_table_c [label="Table C", shape=none];
 
-    // Add an invisible node for the label and connect it to rightTreeJoin
-    label_node [label="Index Scan on\nB.x=A.y", shape=none, fontname="Courier"];
+        hj -> hj_cond [style=dashed, color=gray, arrowhead=none];
+        scan_b -> hj [label=" ", labelloc="c"];
+        table_b -> scan_b [label=" ", labelloc="c"];
 
-    // label_node under rightTreeScanB
-    label_node -> rightTreeScanB [style=dashed,color=gray];
+        hj_idx_scan_c -> hj [label=" ", labelloc="c"];
+        hj_table_c -> hj_idx_scan_c [label="C.z = A.x", fontname="monospace", labelloc="c", labeldistance=2];
+
+        {rank=same; hj; hj_cond;}
+    }
 }

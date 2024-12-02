@@ -1,0 +1,24 @@
+digraph PlanWithMaterializeAndSort {
+    rankdir=BT;
+
+    sort [label=<<B>SORT</B><br />>]
+
+    materialize [label=<<B>MATERIALIZE</B>>]
+
+    join [label=<<B>JOIN</B>>]
+
+    left_scan [label=<<B>SCAN</B>>]
+    left_table [label="Left Table", shape="none"]
+
+    right_scan [label=<<B>SCAN</B>>]
+    right_table [label="Right Table", shape="none"]
+
+    join -> materialize
+    materialize -> sort
+
+    left_scan -> join
+    left_table -> left_scan
+
+    right_scan -> join
+    right_table -> right_scan
+}

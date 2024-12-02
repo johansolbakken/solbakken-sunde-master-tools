@@ -1,0 +1,27 @@
+digraph G {
+    rankdir=BT; // Bottom to top layout
+
+    nlj [label="NLJ", fontname="bold"];
+
+    nlj_seq_a [label="Table Scan", fontname="bold"];
+    nlj_table_a [shape=none, label="Table A"];
+
+    inner_nlj [label="NLJ", fontname="bold"]
+
+    nlj_seq_b [label="Table Scan", fontname="bold"];
+    nlj_table_b [shape=none, label="Table B"];
+
+    index_scan_c [label="Index Scan", fontname="bold"]
+    table_c [label="Table C", shape=none]
+
+
+    // Standard edges
+    nlj_seq_a -> nlj;
+    nlj_table_a -> nlj_seq_a;
+
+    inner_nlj -> nlj
+    nlj_seq_b -> inner_nlj;
+    nlj_table_b -> nlj_seq_b;
+    index_scan_c -> inner_nlj
+    table_c -> index_scan_c [label="  C.x=A.y AND C.z=B.w", fontname="monospace" fontsize=10]
+}

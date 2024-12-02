@@ -1,16 +1,16 @@
 digraph SafeForRowID {
     rankdir=BT;
 
-    outer_order [label=<<B>SORT</B><br /><font point-size="10">(customer.created_at)</font>>]
+    outer_order [label=<<B>SORT</B><br /><font point-size="15">(customer.created_at)</font>>]
 
     cross_prod [label=<<B>CROSS PRODUCT</B>>]
 
     customer_scan [label=<<B>SCAN</B>>]
     customer_table[label="customer", shape="none"]
 
-    limit [label=<<B>LIMIT</B><br /><font point-size="10">100</font>>]
-    inner_sort [label=<<B>SORT</B><br /><font point-size="10">(review.created_at) DESC</font>>]
-    where [label=<<B>SELECTION</B><br /><font point-size="10">customer.id=review.author_id</font>>]
+    limit [label=<<B>LIMIT</B><br /><font point-size="15">100</font>>]
+    inner_sort [label=<<B>SORT</B><br /><font point-size="15">(review.created_at) DESC</font>>]
+    where [label=<<B>SELECTION</B><br /><font point-size="15">customer.id=review.author_id</font>>]
     review_scan [label=<<B>SCAN</B>>]
     review_table [label="review", shape="none"]
 

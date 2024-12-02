@@ -1,0 +1,43 @@
+digraph G {
+    rankdir=BT; // Bottom to top layout
+
+    subgraph cluster_nlj {
+        label="Nested Loop Join";
+        style=dashed;
+
+        nlj [label="NLJ", fontname="bold"];
+        nlj_note [shape=none, label="A.x=B.y"];
+        nlj_seq_a [label="Table Scan", fontname="bold"];
+        nlj_table_a [shape=none, label="Table A"];
+        nlj_seq_b [label="Table Scan", fontname="bold"];
+        nlj_table_b [shape=none, label="Table B"];
+
+        // Create an edge with gray color and dashed style
+        nlj -> nlj_note [style=dashed, color=gray, arrowhead=none];
+
+        // Standard edges
+        nlj_seq_a -> nlj;
+        nlj_table_a -> nlj_seq_a;
+        nlj_seq_b -> nlj;
+        nlj_table_b -> nlj_seq_b;
+
+        // Ensure nlj_note is positioned to the right of nlj
+        {rank=same; nlj; nlj_note;}
+    }
+
+    subgraph cluster_nlj_idx {
+        label="Nested Loop Join with Index";
+        style=dashed;
+
+        nlj_idx [label="NLJ", fontname="bold"];
+        nlj_idx_seq_a [label="Table Scan", fontname="bold"];
+        nlj_idx_table_a [label="Table A", shape=none];
+        nlj_idx_idx_scan_b [label="Index Scan", fontname="bold"];
+        nlj_idx_table_b [shape=none, label="Table B"];
+
+        nlj_idx_seq_a -> nlj_idx;
+        nlj_idx_table_a -> nlj_idx_seq_a;
+        nlj_idx_idx_scan_b -> nlj_idx;
+        nlj_idx_table_b -> nlj_idx_idx_scan_b [label="  B.y=A.x"];
+    }
+}
