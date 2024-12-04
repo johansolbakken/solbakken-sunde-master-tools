@@ -1,0 +1,14 @@
+digraph G {
+    rankdir=BT; // Bottom to top layout
+
+    nlj_idx [label="NLJ", fontname="bold"];
+    nlj_idx_seq_a [label="Table Scan", fontname="bold"];
+    nlj_idx_table_a [label="author", fontname="monospace", shape=none];
+    nlj_idx_idx_scan_b [label="Index Scan", fontname="bold"];
+    nlj_idx_table_b [shape=none, label="messages", fontname="monospace"];
+
+    nlj_idx_seq_a -> nlj_idx;
+    nlj_idx_table_a -> nlj_idx_seq_a;
+    nlj_idx_idx_scan_b -> nlj_idx;
+    nlj_idx_table_b -> nlj_idx_idx_scan_b [label="  author.id=\n  messages.authorid", fontname="monospace", fontsize=10];
+}

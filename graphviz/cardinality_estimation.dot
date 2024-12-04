@@ -1,0 +1,39 @@
+digraph QueryOptimization {
+
+    node [shape=plaintext];
+    compound=true;
+
+    rankdir=LR; // Bottom-to-top arrangement for tree
+
+    subgraph cluster_sql {
+        style=invis;
+        SQL [
+label="SELECT ...\lFROM R, S, T\lWHERE ...\l",
+                       fontname="monospace", fontalign="left", fontsize=11
+];
+    }
+
+    // Outer box for Query Optimizer
+    subgraph cluster_query_optimizer {
+        label = "Query Optimizer";
+
+        // Inner boxes
+        cardinality_estimation [label="Cardinality Estimation", shape=box];
+        cost_model [label="Cost Model", shape=box];
+        plan_space [label="Plan Space Enumeration", shape=box];
+
+        // Arrange inner boxes in a vertical stack
+    }
+
+    subgraph cluster_plan {
+             style=invis
+             imgnode[image="graphviz/cardinality_estimation_subgraph.png" label=""]
+    }
+
+    // SQL Input to Query Optimizer
+    SQL -> cost_model [ltail=cluster_sql, lhead=cluster_query_optimizer, minlen=2];
+
+    // Connect Query Optimizer to Execution Plan
+    cost_model -> imgnode [ltail=cluster_query_optimizer, lhead=cluster_plan minlen=2];
+
+}

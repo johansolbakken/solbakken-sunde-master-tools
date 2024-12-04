@@ -1,0 +1,16 @@
+digraph QueryOptimizationSubgraph {
+    rankdir=BT
+
+    // tree structure explicitly arranged for bt
+    nlj [label="NLJ", fontname="bold"];
+    nlj2 [label="NLJ", fontname="bold"];
+    r [label="R", shape=none];
+    s [label="S", shape=none];
+    t [label="T", shape=none];
+
+    // bottom-to-top hierarchy
+    r -> nlj;
+    s -> nlj2;
+    t -> nlj2;
+    nlj2 -> nlj;
+}
